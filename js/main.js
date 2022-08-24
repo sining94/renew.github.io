@@ -4,6 +4,11 @@ let page = 1;
 const head = $('header');
 const $window = $(window);
 const spyEls = document.querySelectorAll('section .topic');
+const animateEls = document.querySelectorAll('.animate');
+const $menu = $('.listArea > div');
+const $menuEls = $('.listArea > div > ul > li');
+const $HmenuEls = $menuEls.innerHeight()
+
 
 html.animate({ scrollTop: 0 }, 10);
 
@@ -45,9 +50,19 @@ spyEls.forEach(function(spyEl){
     new ScrollMagic
     .Scene({
         triggerElement: spyEl,
-        triggerHook: 0.8,
+        triggerHook: 1,
     })
     .setClassToggle(spyEl, 'active')
+    .addTo(new ScrollMagic.Controller());
+});
+
+animateEls.forEach(function(animateEl){
+    new ScrollMagic
+    .Scene({
+        triggerElement: animateEl,
+        triggerHook: 1,
+    })
+    .setClassToggle(animateEl, 'active')
     .addTo(new ScrollMagic.Controller());
 });
 
@@ -151,6 +166,71 @@ const swiper = new Swiper('.swiper', {
         }
     }
 });
+
+$menu.on({
+    mouseenter: function(){
+        $(this).find('ul').animate({'height':  $HmenuEls * $(this).find('li').length + 10 + 'px', 'padding-top':"15px"}, 400);
+    }
+});
+
+
+// skillbag
+const $skillBag = $('.sec3 .skillBag > div');
+const $cursor = document.querySelector('.cursor');
+
+$skillBag.eq(0).on({
+    mouseenter: function(){
+        $(this).find('.box').stop().animate({'opacity':"0"}, 500)
+    },
+    mouseleave: function(){
+        $(this).find('.box').stop().animate({'opacity':"1"}, 500)
+    }
+});
+
+$skillBag.eq(1).on({
+    mouseenter: function(e){
+        $cursor.style.width =  150 + 'px';
+        $cursor.style.height = 150 + 'px';
+        $cursor.style.borderRadius = 50 + '%';
+        $cursor.style.transform = "translate(-50%, -50%)";
+    },
+    mouseleave: function(e){
+
+        if( e.offsetX < $(this).innerWidth() / 2 ){
+            $cursor.style.top = '0';
+            $cursor.style.left = '0';
+          }
+          else{
+              $cursor.style.top = '0';
+              $cursor.style.left =  '';
+              $cursor.style.right =  '0';
+          }
+
+
+        $cursor.style.width =  $(this).innerWidth() + 'px';
+        $cursor.style.height =  $(this).innerHeight() + 'px';
+
+
+       
+        // $cursor.style.left = 0 + 'px';
+        $cursor.style.top = 0 + 'px';
+        $cursor.style.borderRadius = 0;
+        $cursor.style.transform = 'none';
+        $cursor.style.position = 'absolute';
+    },
+    mousemove: function(e){
+        $cursor.style.left = e.offsetX + 'px';
+        $cursor.style.top = e.offsetY + 'px';
+    }
+});
+
+
+
+
+    
+
+
+
 
 
 

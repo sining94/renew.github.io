@@ -68,7 +68,12 @@ header .inner .logo .tooltip::after{content:"";position:absolute;right:-12px;top
 .sec2{display:flex;justify-content:center;align-items:center;padding:100px 150px}
 .sec2 > div{width:100%;height:100%}
 .sec2 .leftArea{position:relative;padding-top:100px;}
-.sec2 .leftArea p{margin-bottom:20px;font-weight:400;text-align:right;line-height:1.9;font-size:17px}
+.sec2 .leftArea p.animate{margin-bottom:20px;font-weight:400;text-align:right;line-height:1.9;font-size:17px;opacity:0}
+.sec2 .leftArea p.animate.active{opacity:1}
+.sec2 .leftArea p.active{transition:2s}
+.sec2 .leftArea p.active+p.active{transition:3s}
+.sec2 .leftArea p.active+p.active+p.active{transition:4s}
+.sec2 .leftArea .active+.active+.active+.active{transition:5s}
 .sec2 .middleArea{display:flex;justify-content:center;align-items:center}
 .sec2 .middleArea .medal{position:relative;display:flex;justify-content:center;align-items:center;width:65%;height:60%}
 .sec2 .middleArea .medal div{position: absolute;backface-visibility: hidden;transition: 1s}
@@ -80,21 +85,38 @@ header .inner .logo .tooltip::after{content:"";position:absolute;right:-12px;top
 
 .sec2 .rightArea{display:flex;flex-wrap:wrap;padding-top:100px}
 .sec2 .rightArea .listArea{width:100%;}
-.sec2 .rightArea .listArea > div{background:#dcdcdc;margin-bottom:30px;border-radius:20px;padding:10px 5px;}
+.sec2 .rightArea .listArea > div{background:#dcdcdc;margin-bottom:30px;border-radius:20px;padding:10px 5px;text-align:center}
 .sec2 .rightArea .listArea div:last-child{margin:0}
-.sec2 .rightArea .listArea > div p{display:none;transition:5s;opacity: 0;}
-.sec2 .rightArea .listArea > div:hover p{display:block;opacity: 1;}
+.sec2 .rightArea .listArea div h1{font-weight:600;font-size:21px}
+.sec2 .rightArea .listArea div ul{display: flex;align-items:center;justify-content: center;flex-wrap:wrap;font-size:15px;height:0;overflow:hidden}
+.sec2 .rightArea .listArea div ul li{display: block;width:100%;padding:5px 0}
+/* .sec2 .rightArea .listArea div ul.active{font-size:15px;height:auto;} */
+/* .sec2 .rightArea .listArea > div p{display:none;height:0;transition:5s;opacity: 0} */
+/* .sec2 .rightArea .listArea > div:hover p{display:block;height:auto;opacity: 1;} */
 
-.sec3{position:relative;padding:100px 150px}
+.sec3{position:relative;padding:100px 150px;background:#f1f2f6}
 .sec3 .inner{position:relative;height:100%}
-.sec3 .inner .skillBag{display:flex;justify-content:center;align-items:flex-end;height:90%;margin-bottom:50px}
-.sec3 .inner .skillBag > div{display:flex;align-items:center;justify-content:center;width:100%;margin-right:10px;height:80%;text-align:center}
-.sec3 .inner .skillBag > div img{width:100%}
-.sec3 .inner .skillBag > div:nth-child(1){background:#c0d3e1}
-.sec3 .inner .skillBag > div:nth-child(2){background:#a3c6e0}
-.sec3 .inner .skillBag > div:nth-child(3){background:#88badf}
-.sec3 .inner .skillBag > div:nth-child(4){background:#6aafe1}
-.sec3 .inner .skillBag > div:nth-child(5){background:#449fe2}
+.sec3 .inner .skillBag{display:flex;justify-content:space-between;align-items:flex-end;height:100%}
+
+.sec3 .inner .skillBag > div{position:relative;width:24%;height:85%;padding:13% 1%;border:3px solid #fff;overflow:hidden}
+
+.wave {opacity:.4;position: absolute;bottom: -34%;left: 50%;background: #0af;width:700px;height:700px;margin-left:-350px;margin-top:-350px;transform-origin: 50% 48%;border-radius: 43%;animation: drift 3000ms infinite linear}
+.wave.-three {animation: drift 5000ms infinite linear;}
+.wave.-two {animation: drift 7000ms infinite linear;opacity: .1;background: yellow}
+.box:after {content: '';display: block;left: 0;top: 0;width: 100%;height: 100%;background: linear-gradient(to bottom, rgba(#e8a, 1), rgba(#def, 0) 80%, rgba(white, .5));z-index: 11;transform: translate3d(0, 0, 0)}
+
+@keyframes drift {
+from { transform: rotate(0deg)}
+from { transform: rotate(360deg)}
+}
+
+.sec3 .inner .skillBag > div .cursor {position: absolute; width: 50px; height: 50px; border-radius: 50%; background: #fff;mix-blend-mode: difference; transform: translate(-50%, -50%); pointer-events: none;z-index:3;transition: transform .4s;}
+
+
+.sec3 .inner .skillBag > div .txtCont{position: absolute;display: flex;top: 0;left: 0;width: 100%;height: 100%;padding: 60% 1%;flex-wrap: wrap;align-items: center;justify-content: center;z-index:2;color: #000;;pointer-events:none}
+.sec3 .inner .skillBag > div .txtCont h2{text-align:center;margin-bottom:30px;font-weight:600;font-size:25px}
+.sec3 .inner .skillBag > div .txtCont p{font-size:14px;text-align:center}
+
 .sec3 .inner > p{text-align:center}
 .sec3 .inner > p > span{position:relative}
 .sec3 .inner > p span::before{content: "";display:block;position:absolute;top:-10px;bottom:0;left:-35px;width:30px;background-image: url(../img/click.png);background-repeat:no-repeat;background-position:center center;background-size:100% auto;}
@@ -113,8 +135,9 @@ header .inner .logo .tooltip::after{content:"";position:absolute;right:-12px;top
 .sec4 .swiperArea .swiper-button-next{position:absolute;top:calc(100% - 10px);left:50%;margin-left:-25px;width:50px;height:50px}
 .sec4 .swiperArea .swiper-button-next::after{display:none}
 .sec4 .swiperArea .swiper-button-next img{display:block;width:100%;height:100%}
-.sec4 .detailArea{width:100%}
+.sec4 .detailArea{width:100%;position:relative}
 .sec4 .detailArea .detailList{width:100%;height:100%;position:relative}
+.sec4 .detailArea .slideNum{position:absolute;left:0;right:0;font-size:30vw;color:rgba(0,0,0,.03);z-index:-1;text-align:center;padding-left:11%}
 .sec4 .detailArea .detailList li>a{display: block;margin-top: 55px}
 .sec4 .detailArea .detailList li{position:absolute;width:100%;height:100%;padding:4% 0 0 100px;opacity:0;transition:.5s;top:0;left:0;}
 .sec4 .detailArea .detailList li.active{opacity:1;z-index:1;}
@@ -124,6 +147,7 @@ header .inner .logo .tooltip::after{content:"";position:absolute;right:-12px;top
 .sec4 .detailArea .detailList .imgArea{position:relative;display:flex;justify-content:center;align-items:center}
 .sec4 .detailArea .detailList .imgArea::after{content:'클릭하시면 페이지를 보실수 있습니다.';display:block;position:absolute;width:100%;text-align:center;bottom:-10%}
 .sec4 .detailArea .detailList .imgArea img{height:100%;border-radius:25px;box-shadow:5px 5px 15px rgba(0,0,0,.4)}
+
 
 
 
